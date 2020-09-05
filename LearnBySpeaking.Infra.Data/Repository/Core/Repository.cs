@@ -44,6 +44,11 @@ namespace LearnBySpeaking.Infra.Data.Repository.Core
             await Task.Factory.StartNew(() => { DbSet.Update(obj); });
         }
 
+        public async Task<int> CommitAsync()
+        {
+            return await Db.SaveChangesAsync();
+        }
+
         public void Dispose()
         {
             Db.Dispose();

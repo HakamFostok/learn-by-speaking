@@ -29,7 +29,7 @@ namespace LearnBySpeaking.Application.Services
             foreach (Topic topic in topics)
                 await _topicRepository.AddAsync(topic);
 
-            //await _topicRepository.SaveChangesAsync() ;
+            await _topicRepository.CommitAsync();
         }
 
         private async Task<List<Topic>> GetTopics()

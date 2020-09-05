@@ -12,5 +12,6 @@ namespace LearnBySpeaking.Domain.Interfaces.Core
         Task RemoveAsync(int id);
         Task<TEntity> GetByIdAsync(int id);
         Task<IQueryable<TEntity>> GetAllAsync();
+        Task<int> CommitAsync();
     }
 }
