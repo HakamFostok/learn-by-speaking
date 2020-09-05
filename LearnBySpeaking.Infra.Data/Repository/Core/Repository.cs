@@ -10,10 +10,10 @@ namespace LearnBySpeaking.Infra.Data.Repository.Core
     public class Repository<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
-        protected readonly BTContext Db;
+        protected readonly LearnBySpeakingContext Db;
         protected readonly DbSet<TEntity> DbSet;
 
-        public Repository(BTContext context)
+        public Repository(LearnBySpeakingContext context)
         {
             Db = context;
             DbSet = Db.Set<TEntity>();

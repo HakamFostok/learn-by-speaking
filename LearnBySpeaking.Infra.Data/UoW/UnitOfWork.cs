@@ -8,10 +8,10 @@ namespace LearnBySpeaking.Infra.Data.UoW
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly BTContext _context;
+        private readonly LearnBySpeakingContext _context;
         private IDbContextTransaction _transaction;
 
-        public UnitOfWork(BTContext context)
+        public UnitOfWork(LearnBySpeakingContext context)
         {
             _context = context;
         }

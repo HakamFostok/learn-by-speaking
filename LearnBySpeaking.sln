@@ -14,12 +14,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnBySpeaking.Infra.CrossCutting.IoC", "LearnBySpeaking.Infra.CrossCutting.IoC\LearnBySpeaking.Infra.CrossCutting.IoC.csproj", "{C0CEBA13-46EC-4E3F-8138-308F46786041}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E77CBB26-FEB5-4B06-A766-EA2608ED8372}"
-	ProjectSection(SolutionItems) = preProject
-		ideas.txt = ideas.txt
-		Kendo.Mvc.dll = Kendo.Mvc.dll
-	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnBySpeaking.Domain.Core", "LearnBySpeaking.Domain.Core\LearnBySpeaking.Domain.Core.csproj", "{403AB9AE-C2C3-4289-8124-37F20F8F1770}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnBySpeaking.Domain.Core", "LearnBySpeaking.Domain.Core\LearnBySpeaking.Domain.Core.csproj", "{403AB9AE-C2C3-4289-8124-37F20F8F1770}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

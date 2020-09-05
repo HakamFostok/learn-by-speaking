@@ -13,7 +13,9 @@ using LearnBySpeaking.Infra.Data.Repository.Core;
 using LearnBySpeaking.Infra.Data.UoW;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net.Http;
 
 namespace LearnBySpeaking.Infra.CrossCutting.IoC
 {
@@ -21,6 +23,8 @@ namespace LearnBySpeaking.Infra.CrossCutting.IoC
     {
         public static void RegisterServices(IServiceCollection services)
         {
+            services.AddSingleton<HttpClient>();
+
             // ASP.NET HttpContext dependency
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, User>();
@@ -59,13 +63,14 @@ namespace LearnBySpeaking.Infra.CrossCutting.IoC
             services.AddScoped<IAppParameterRepository, AppParameterRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddDbContext<BTContext>((provider, optionsBuilder) =>
+            services.AddDbContext<LearnBySpeakingContext>((provider, optionsBuilder) =>
             {
                 IConnectionStrings connectionString = provider.GetService<IConnectionStrings>();
                 // this statement can be used for debugging but in production it could cause problem
                 //optionsBuilder.EnableSensitiveDataLogging();
 
-                //optionsBuilder.UseSqlServer(connectionString.DefaultConnection);
+                optionsBuilder.UseSqlite(connectionString.DefaultConnection);
+
                 // the following feature is nice, but it will not work with Transaction
                 //optionsBuilder.UseSqlServer(connectionString.DefaultConnection, builder =>
                 //{
@@ -73,7 +78,6 @@ namespace LearnBySpeaking.Infra.CrossCutting.IoC
                 //    builder.EnableRetryOnFailure(2, TimeSpan.FromSeconds(3), null);
                 //});
             }, ServiceLifetime.Scoped, ServiceLifetime.Scoped);
-
 
             services.AddScoped<IMongoEventRepository, MongoEventRepository>();
             services.AddScoped<EventStoreContext>();

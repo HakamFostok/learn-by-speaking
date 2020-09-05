@@ -9,7 +9,7 @@ namespace LearnBySpeaking.Infra.Data.Repository
 {
     public class AppParameterRepository : Repository<AppParameter>, IAppParameterRepository
     {
-        public AppParameterRepository(BTContext context)
+        public AppParameterRepository(LearnBySpeakingContext context)
             : base(context)
         {
         }
