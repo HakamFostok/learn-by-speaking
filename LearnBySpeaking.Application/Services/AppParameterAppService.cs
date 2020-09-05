@@ -44,14 +44,6 @@ namespace LearnBySpeaking.Application.Services
             return _mapper.Map<AppParameterViewModel>(result);
         }
 
-        public async Task SendEmail()
-        {
-            await _sendEmailService.SendEmailAsync("Test email service",
-                "Hi. <br> This is Hakan and he is testing a new email service, if you received this email please told him, he will be very happy that the service is working.<br> Thank you. <br> Have a nice day",
-                "hakam.fostok@biteg.net",
-                new List<string> { "alitaha.ozturk@biteg.net", "omer.ozkok@biteg.net" });
-        }
-
         public void Dispose()
         {
             GC.SuppressFinalize(this);

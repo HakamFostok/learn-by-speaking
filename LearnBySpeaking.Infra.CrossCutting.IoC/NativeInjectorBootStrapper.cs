@@ -13,7 +13,6 @@ using LearnBySpeaking.Infra.Data.Repository.Core;
 using LearnBySpeaking.Infra.Data.UoW;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LearnBySpeaking.Infra.CrossCutting.IoC
@@ -66,7 +65,7 @@ namespace LearnBySpeaking.Infra.CrossCutting.IoC
                 // this statement can be used for debugging but in production it could cause problem
                 //optionsBuilder.EnableSensitiveDataLogging();
 
-                optionsBuilder.UseSqlServer(connectionString.DefaultConnection);
+                //optionsBuilder.UseSqlServer(connectionString.DefaultConnection);
                 // the following feature is nice, but it will not work with Transaction
                 //optionsBuilder.UseSqlServer(connectionString.DefaultConnection, builder =>
                 //{

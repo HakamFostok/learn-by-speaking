@@ -9,7 +9,5 @@ namespace LearnBySpeaking.Application.Interfaces
         Task CreateBundleAsync(bool throwException);
 
         Task<AppParameterViewModel> GetByNameAsync(string name);
-
-        Task SendEmail();
     }
 }
