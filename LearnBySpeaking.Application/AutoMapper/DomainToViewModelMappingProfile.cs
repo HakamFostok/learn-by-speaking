@@ -9,6 +9,8 @@ namespace LearnBySpeaking.Application.AutoMapper
         public DomainToViewModelMappingProfile()
         {
             CreateMap<AppParameter, AppParameterViewModel>();
+            CreateMap<Topic, TopicViewModel>();
+            CreateMap<Test, TestViewModel>();
         }
     }
 }

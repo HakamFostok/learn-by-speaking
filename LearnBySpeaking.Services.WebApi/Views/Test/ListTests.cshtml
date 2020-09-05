@@ -1,0 +1,23 @@
+﻿@model List<TestViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-12">
+        <ul class="list-group">
+            @foreach (var test in Model)
+            {
+                <li class="list-group-item">
+                    <div class="d-flex flex-row align-items-center">
+                        <div class="flex-grow-1">@test.Topic.Title</div>
+                        <div>@test.CreatedTime</div>
+                        <form asp-controller="test" asp-action="DeleteTest" asp-route-id="@test.Id">
+                            <button type="submit" class="btn btn-link">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

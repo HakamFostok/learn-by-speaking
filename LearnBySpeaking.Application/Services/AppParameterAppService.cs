@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 
 namespace LearnBySpeaking.Application.Services
 {
+
+
     public class AppParameterAppService : BaseAppService<AppParameterViewModel, AppParameter, AppParameterEventModel, AppParameterCreateCommand, AppParameterUpdateCommand, AppParameterRemoveCommand>,
         IAppParameterAppService
     {

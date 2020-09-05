@@ -38,6 +38,8 @@ namespace LearnBySpeaking.Infra.CrossCutting.IoC
 
             services.AddScoped<IAppParameterAppService, AppParameterAppService>();
             services.AddScoped<IWiredIntegrationAppService, WiredIntegrationAppService>();
+            services.AddScoped<ITopicAppService, TopicAppService>();
+            services.AddScoped<ITestAppService, TestAppService>();
 
             #endregion
 
@@ -63,6 +65,7 @@ namespace LearnBySpeaking.Infra.CrossCutting.IoC
 
             services.AddScoped<IAppParameterRepository, AppParameterRepository>();
             services.AddScoped<ITopicRepository, TopicRepository>();
+            services.AddScoped<ITestRepository, TestRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddDbContext<LearnBySpeakingContext>((provider, optionsBuilder) =>
