@@ -1,13 +1,10 @@
-﻿using LearnBySpeaking.Application.Interfaces;
-using LearnBySpeaking.Application.Services;
+﻿using LearnBySpeaking.Application.Services;
 using LearnBySpeaking.Domain.Interfaces.Core;
 using LearnBySpeaking.Infra.CrossCutting.IoC;
-using LearnBySpeaking.Services.WebApi.AuthorizationRequirements;
 using LearnBySpeaking.Services.WebApi.HostedServices;
 using LearnBySpeaking.Services.WebApi.Utility;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +14,6 @@ using Microsoft.OpenApi.Models;
 using NLog.Extensions.Logging;
 using System;
 using System.Text;
-using Policies = LearnBySpeaking.Domain.Interfaces.EntityInterfaces.UserRolesExtension;
 
 namespace LearnBySpeaking.Services.WebApi
 {
@@ -41,8 +37,6 @@ namespace LearnBySpeaking.Services.WebApi
 
             services.AddAutoMapperSetup();
 
-            ConfigureAuthorization(services);
-
             // Adding MediatR for Domain Events and Notifications
             services.AddMediatR(typeof(Startup));
 
@@ -64,15 +58,6 @@ namespace LearnBySpeaking.Services.WebApi
                     };
                 });
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("ApiCorsPolicy", builder => builder.WithOrigins("http://localhost:4200")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials()
-                    .SetIsOriginAllowed((host) => true));
-            });
-
             NativeInjectorBootStrapper.RegisterServices(services);
 
             ConfigureAppSettings(services);
@@ -90,7 +75,6 @@ namespace LearnBySpeaking.Services.WebApi
             app.ConfigureLanguageMiddleware();
 
             app.UseRouting();
-            app.UseCors("ApiCorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -129,65 +113,6 @@ namespace LearnBySpeaking.Services.WebApi
                 return new AppSettings(jwtOptionsSection, connectionStringsSection, mongodbDatabaseSettings);
             });
         }
-
-        private static void ConfigureAuthorization(IServiceCollection services)
-        {
-            services.AddSingleton<IAuthorizationHandler, AdminAuthorizationRequirementHandler>();
-            services.AddSingleton<IAuthorizationHandler, UserAuthorizationRequirementHandler>();
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(Policies.ADMIN_POLICY,
-                    policy => policy.Requirements.Add(new AdminAuthorizationRequirement()));
-
-                options.AddPolicy(Policies.USER_POLICY,
-                    policy => policy.Requirements.Add(new UserAuthorizationRequirement()));
-            });
-        }
-
-        //private static void ConfigureJwtToken(IServiceCollection services, IAppSettings appSettings)
-        //{
-        //    // configure jwt authentication
-        //    var key = Encoding.ASCII.GetBytes(appSettings.Secret);
-        //    services.AddAuthentication(x =>
-        //    {
-        //        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        //        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        //    })
-        //    .AddJwtBearer(x =>
-        //    {
-        //        x.Events = new JwtBearerEvents
-        //        {
-        //            OnTokenValidated = context =>
-        //            {
-        //                var userService = context.HttpContext.RequestServices.GetRequiredService<IUserAppService>();
-        //                var user = userService.GetByUserName(context.Principal.Identity.Name).Result;
-        //                if (user == null)
-        //                {
-        //                    // return unauthorized if user no longer exists
-        //                    context.Fail("Unauthorized");
-        //                }
-        //                return Task.CompletedTask;
-        //            },
-        //            OnAuthenticationFailed = context =>
-        //            {
-        //                return Task.CompletedTask;
-        //            }
-        //        };
-        //        x.RequireHttpsMetadata = false;
-        //        x.SaveToken = true;
-        //        x.TokenValidationParameters = new TokenValidationParameters
-        //        {
-        //            ValidateIssuerSigningKey = true,
-        //            IssuerSigningKey = new SymmetricSecurityKey(key),
-        //            ValidateIssuer = true,
-        //            ValidateAudience = true,
-        //            ValidateLifetime = true,
-        //            ValidateTokenReplay = true,
-        //            ValidIssuer = appSettings.ValidIssuer,
-        //            ValidAudience = appSettings.ValidAudience,
-        //        };
-        //    });
-        //}
+        
     }
 }
