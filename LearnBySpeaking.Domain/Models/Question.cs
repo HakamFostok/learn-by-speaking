@@ -9,8 +9,8 @@ namespace LearnBySpeaking.Domain.Models
         public string Text { get; set; }
         public List<Answer> Answers { get; set; }
 
-        [ForeignKey(nameof(Topic))]
-        public int TopicId { get; set; }
-        public Topic Topic { get; set; }
+        [ForeignKey(nameof(Test))]
+        public int TestId { get; set; }
+        public Test Test { get; set; }
     }
 }

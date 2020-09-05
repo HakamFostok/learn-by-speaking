@@ -7,9 +7,6 @@ namespace LearnBySpeaking.Infra.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AppParameter");
-
             migrationBuilder.CreateTable(
                 name: "Topic",
                 columns: table => new
@@ -25,21 +22,41 @@ namespace LearnBySpeaking.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Test",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CreatedTime = table.Column<DateTime>(nullable: false),
+                    TopicId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Test", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Test_Topic_TopicId",
+                        column: x => x.TopicId,
+                        principalTable: "Topic",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Question",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Text = table.Column<string>(nullable: true),
-                    TopicId = table.Column<int>(nullable: false)
+                    TestId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Question", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Question_Topic_TopicId",
-                        column: x => x.TopicId,
-                        principalTable: "Topic",
+                        name: "FK_Question_Test_TestId",
+                        column: x => x.TestId,
+                        principalTable: "Test",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -72,8 +89,13 @@ namespace LearnBySpeaking.Infra.Data.Migrations
                 column: "QuestionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Question_TopicId",
+                name: "IX_Question_TestId",
                 table: "Question",
+                column: "TestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Test_TopicId",
+                table: "Test",
                 column: "TopicId");
         }
 
@@ -86,26 +108,10 @@ namespace LearnBySpeaking.Infra.Data.Migrations
                 name: "Question");
 
             migrationBuilder.DropTable(
-                name: "Topic");
+                name: "Test");
 
-            migrationBuilder.CreateTable(
-                name: "AppParameter",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CreateDate = table.Column<DateTime>(type: "datetime", nullable: false),
-                    CreateUser = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime", nullable: true),
-                    UpdateUser = table.Column<string>(type: "TEXT", nullable: true),
-                    Value = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppParameter", x => x.Id);
-                });
+            migrationBuilder.DropTable(
+                name: "Topic");
         }
     }
 }

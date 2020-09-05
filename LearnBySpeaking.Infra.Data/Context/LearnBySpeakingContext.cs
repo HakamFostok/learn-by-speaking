@@ -17,7 +17,7 @@ namespace LearnBySpeaking.Infra.Data.Context
         public virtual DbSet<Topic> Topic { get; set; }
         public virtual DbSet<Question> Question { get; set; }
         public virtual DbSet<Answer> Answers { get; set; }
-
+        public virtual DbSet<Test> Test { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
