@@ -33,8 +33,4 @@
 		<ProjectReference Include="..\LearnBySpeaking.Infra.CrossCutting.IoC\LearnBySpeaking.Infra.CrossCutting.IoC.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Models\" />
-	</ItemGroup>
-
 </Project>

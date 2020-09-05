@@ -1,6 +1,7 @@
 ﻿using LearnBySpeaking.Application.Interfaces;
 using LearnBySpeaking.Application.ViewModels;
 using LearnBySpeaking.Domain.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace LearnBySpeaking.Services.WebApi.Controllers
 {
+    [Authorize]
     public class TestController : Controller
     {
         private readonly ITopicAppService _topicAppService;
