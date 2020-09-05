@@ -33,7 +33,7 @@ namespace LearnBySpeaking.Services.WebApi
         {
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
               .AddEntityFrameworkStores<LearnBySpeakingContext>();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
 
             ILoggerFactory loggerFactory = LoggerFactory.Create(builder => builder.AddNLog());
