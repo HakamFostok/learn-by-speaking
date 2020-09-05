@@ -1,11 +1,13 @@
 ﻿using LearnBySpeaking.Application.Services;
 using LearnBySpeaking.Domain.Interfaces.Core;
 using LearnBySpeaking.Infra.CrossCutting.IoC;
+using LearnBySpeaking.Infra.Data.Context;
 using LearnBySpeaking.Services.WebApi.HostedServices;
 using LearnBySpeaking.Services.WebApi.Utility;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -29,34 +31,19 @@ namespace LearnBySpeaking.Services.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+              .AddEntityFrameworkStores<LearnBySpeakingContext>();
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+
             ILoggerFactory loggerFactory = LoggerFactory.Create(builder => builder.AddNLog());
             ILogger<Program> logger = loggerFactory.CreateLogger<Program>();
             services.AddSingleton(logger);
-
-            services.AddControllers();
 
             services.AddAutoMapperSetup();
 
             // Adding MediatR for Domain Events and Notifications
             services.AddMediatR(typeof(Startup));
-
-            services.AddAuthentication(options =>
-                {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateAudience = false,
-                        ValidateIssuer = false,
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtOptions:Key"])),
-                        ValidateLifetime = true,
-                        ClockSkew = TimeSpan.Zero
-                    };
-                });
 
             NativeInjectorBootStrapper.RegisterServices(services);
 
@@ -87,7 +74,13 @@ namespace LearnBySpeaking.Services.WebApi
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
+                endpoints.MapRazorPages();
+            });
         }
 
         private void ConfigureAppSettings(IServiceCollection services)
