@@ -1,8 +1,9 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
+﻿using DnsClient.Protocol;
+using LearnBySpeaking.Application.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Linq.Expressions;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,16 +12,33 @@ namespace LearnBySpeaking.Services.WebApi.HostedServices
 {
     public class WiredIntegrationService : BackgroundService
     {
-        private readonly HttpClient _httpClient;
-
-        public WiredIntegrationService(HttpClient httpClient)
+        private const int ONE_HOUR = 1000 * 60 * 60;
+        private readonly IServiceProvider _serviceProvider;
+       
+        public WiredIntegrationService(IServiceProvider serviceProvider)
         {
-            _httpClient = httpClient;
+            _serviceProvider = serviceProvider;
         }
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        protected async override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            throw new NotImplementedException();
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                try
+                {
+                    using var scope = _serviceProvider.CreateScope();
+                    using var integrationService = scope.ServiceProvider.GetService<IWiredIntegrationAppService>();
+                    await integrationService.Integration();
+                }
+                catch (Exception ex)
+                {
+
+                }
+                finally
+                {
+                    await Task.Delay(ONE_HOUR);
+                }
+            }
         }
     }
 }

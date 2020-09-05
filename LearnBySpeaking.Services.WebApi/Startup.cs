@@ -1,7 +1,9 @@
-﻿using LearnBySpeaking.Application.Services;
+﻿using LearnBySpeaking.Application.Interfaces;
+using LearnBySpeaking.Application.Services;
 using LearnBySpeaking.Domain.Interfaces.Core;
 using LearnBySpeaking.Infra.CrossCutting.IoC;
 using LearnBySpeaking.Services.WebApi.AuthorizationRequirements;
+using LearnBySpeaking.Services.WebApi.HostedServices;
 using LearnBySpeaking.Services.WebApi.Utility;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -77,6 +79,8 @@ namespace LearnBySpeaking.Services.WebApi
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" }); });
+
+            services.AddHostedService<WiredIntegrationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -37,6 +37,7 @@ namespace LearnBySpeaking.Infra.CrossCutting.IoC
             #region AppService Implementation
 
             services.AddScoped<IAppParameterAppService, AppParameterAppService>();
+            services.AddScoped<IWiredIntegrationAppService, WiredIntegrationAppService>();
 
             #endregion
 
@@ -61,13 +62,14 @@ namespace LearnBySpeaking.Infra.CrossCutting.IoC
             #region Infra - Data Implementation
 
             services.AddScoped<IAppParameterRepository, AppParameterRepository>();
+            services.AddScoped<ITopicRepository, TopicRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddDbContext<LearnBySpeakingContext>((provider, optionsBuilder) =>
             {
                 IConnectionStrings connectionString = provider.GetService<IConnectionStrings>();
                 // this statement can be used for debugging but in production it could cause problem
-                //optionsBuilder.EnableSensitiveDataLogging();
+                // optionsBuilder.EnableSensitiveDataLogging();
 
                 optionsBuilder.UseSqlite(connectionString.DefaultConnection);
 
