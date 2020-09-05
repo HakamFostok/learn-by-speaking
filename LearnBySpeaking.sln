@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29123.88
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnBySpeaking.Application", "LearnBySpeaking.Application\LearnBySpeaking.Application.csproj", "{350501DC-AA1E-4610-900F-D0667A6F6D69}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnBySpeaking.Domain", "LearnBySpeaking.Domain\LearnBySpeaking.Domain.csproj", "{1EDCC996-EE5A-40D4-8F60-1D53860DF50B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnBySpeaking.Infra.Data", "LearnBySpeaking.Infra.Data\LearnBySpeaking.Infra.Data.csproj", "{29987C5B-99EB-460B-826B-8BBB971730F3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnBySpeaking.Services.WebApi", "LearnBySpeaking.Services.WebApi\LearnBySpeaking.Services.WebApi.csproj", "{4F541911-6F62-42FE-B8FF-680024A26B7A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnBySpeaking.Infra.CrossCutting.IoC", "LearnBySpeaking.Infra.CrossCutting.IoC\LearnBySpeaking.Infra.CrossCutting.IoC.csproj", "{C0CEBA13-46EC-4E3F-8138-308F46786041}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E77CBB26-FEB5-4B06-A766-EA2608ED8372}"
+	ProjectSection(SolutionItems) = preProject
+		ideas.txt = ideas.txt
+		Kendo.Mvc.dll = Kendo.Mvc.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnBySpeaking.Domain.Core", "LearnBySpeaking.Domain.Core\LearnBySpeaking.Domain.Core.csproj", "{403AB9AE-C2C3-4289-8124-37F20F8F1770}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{350501DC-AA1E-4610-900F-D0667A6F6D69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{350501DC-AA1E-4610-900F-D0667A6F6D69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{350501DC-AA1E-4610-900F-D0667A6F6D69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{350501DC-AA1E-4610-900F-D0667A6F6D69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EDCC996-EE5A-40D4-8F60-1D53860DF50B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EDCC996-EE5A-40D4-8F60-1D53860DF50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EDCC996-EE5A-40D4-8F60-1D53860DF50B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EDCC996-EE5A-40D4-8F60-1D53860DF50B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29987C5B-99EB-460B-826B-8BBB971730F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29987C5B-99EB-460B-826B-8BBB971730F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29987C5B-99EB-460B-826B-8BBB971730F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29987C5B-99EB-460B-826B-8BBB971730F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F541911-6F62-42FE-B8FF-680024A26B7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F541911-6F62-42FE-B8FF-680024A26B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F541911-6F62-42FE-B8FF-680024A26B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F541911-6F62-42FE-B8FF-680024A26B7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0CEBA13-46EC-4E3F-8138-308F46786041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0CEBA13-46EC-4E3F-8138-308F46786041}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0CEBA13-46EC-4E3F-8138-308F46786041}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0CEBA13-46EC-4E3F-8138-308F46786041}.Release|Any CPU.Build.0 = Release|Any CPU
+		{403AB9AE-C2C3-4289-8124-37F20F8F1770}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{403AB9AE-C2C3-4289-8124-37F20F8F1770}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{403AB9AE-C2C3-4289-8124-37F20F8F1770}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{403AB9AE-C2C3-4289-8124-37F20F8F1770}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AC292531-EBD5-4A46-873D-43D4B2C5743B}
+	EndGlobalSection
+EndGlobal
