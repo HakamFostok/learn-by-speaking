@@ -2,6 +2,10 @@
 using LearnBySpeaking.Domain.Models;
 using LearnBySpeaking.Infra.Data.Context;
 using LearnBySpeaking.Infra.Data.Repository.Core;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LearnBySpeaking.Infra.Data.Repository
 {
@@ -11,5 +15,15 @@ namespace LearnBySpeaking.Infra.Data.Repository
             : base(context)
         {
         }
+
+        public override async Task<Test> GetByIdAsync(int id)
+        {
+            return await DbSet.Where(x => x.Id == id)
+                .Include(x => x.Topic)
+                .Include(x => x.Questions)
+                .ThenInclude(x => x.Answers)
+                .FirstOrDefaultAsync();
+        }
+
     }
 }

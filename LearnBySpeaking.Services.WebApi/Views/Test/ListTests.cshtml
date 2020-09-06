@@ -6,12 +6,25 @@
 <div class="row">
     <div class="col-12">
         <ul class="list-group">
+            <li class="list-group-item">
+                <div class="d-flex flex-row align-items-center">
+                    <div class="pr-4"><h4>#</h4></div>
+                    <div class="flex-grow-1"><h4>Title</h4></div>
+                    <div><h4>Date</h4></div>
+                    <div><button type="submit" class="btn btn-link">Delete</button></div>
+                </div>
+            </li>
+
+            @{ int i = 0; }
             @foreach (var test in Model)
             {
-                <li class="list-group-item">
+                <li class="list-group-item border-0">
                     <div class="d-flex flex-row align-items-center">
-                        <div class="flex-grow-1">@test.Topic.Title</div>
-                        <div>@test.CreatedTime</div>
+                        <div class="pr-4">@(i++)</div>
+                        <div class="flex-grow-1">
+                            <a asp-controller="test" asp-action="TakeTest" asp-route-id="@test.Id">@test.Topic.Title</a>
+                        </div>
+                        <div>@test.CreatedTime.ToString("yyyy-MM-dd")</div>
                         <form asp-controller="test" asp-action="DeleteTest" asp-route-id="@test.Id">
                             <button type="submit" class="btn btn-link">Delete</button>
                         </form>

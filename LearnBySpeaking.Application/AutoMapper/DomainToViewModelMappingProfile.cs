@@ -11,6 +11,9 @@ namespace LearnBySpeaking.Application.AutoMapper
             CreateMap<AppParameter, AppParameterViewModel>();
             CreateMap<Topic, TopicViewModel>();
             CreateMap<Test, TestViewModel>();
+            CreateMap<Question, QuestionViewModel>();
+            CreateMap<Answer, AnswerViewModel>();
+
         }
     }
 }

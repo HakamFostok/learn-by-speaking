@@ -44,27 +44,6 @@ namespace LearnBySpeaking.Services.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> ListTests()
         {
-            //List<TestViewModel> models = new List<TestViewModel>
-            //{
-            //    new TestViewModel
-            //    {
-            //        Topic = new TopicViewModel
-            //        {
-            //            Title = "Title 1"
-            //        },
-            //        CreatedTime = DateTime.Now,
-            //        Id = 1
-            //    },
-            //    new TestViewModel
-            //    {
-            //        Topic = new TopicViewModel
-            //        {
-            //            Title = "Title 2"
-            //        },
-            //        CreatedTime = DateTime.Now,
-            //        Id = 2
-            //    }
-            //};
             var result = await _testAppService.GetAllAsync();
             var list = result.ToList();
             return View(list);
@@ -88,11 +67,12 @@ namespace LearnBySpeaking.Services.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> TakeTest(int id)
         {
-            return View();
+            var result = await _testAppService.GetByIdAsync(id);
+            return View(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EvaluateTest(EvaluateTestViewModel model)
+        public async Task<IActionResult> TakeTest(EvaluateTestViewModel model)
         {
             return View();
         }

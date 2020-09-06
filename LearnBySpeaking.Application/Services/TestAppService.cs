@@ -54,5 +54,11 @@ namespace LearnBySpeaking.Application.Services
             var result = await _testRepository.GetAllAsync();
             return result.ProjectTo<TestViewModel>(_mapper.ConfigurationProvider);
         }
+
+        public async Task<TestViewModel> GetByIdAsync(int id)
+        {
+            var result = await _testRepository.GetByIdAsync(id);
+            return _mapper.Map<TestViewModel>(result);
+        }
     }
 }

@@ -1,24 +1,83 @@
-﻿@{
+﻿@model TestViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="row">
-    <div class="col-12 offset-lg-4 col-lg-4">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="text-center">Login</h4>
-                <div class="form-group">
-                    <input id="userName" type="text" placeholder="User Name" class="form-control" />
-                </div>
+<div id="take-test">
 
-                <div class="form-group">
-                    <input id="password" type="password" placeholder="Password" class="form-control" />
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center">@Model.Topic.Title</h2>
+            <div class="card mt-2">
+                <div class="card-body border-1 w-100"
+                     style="position:relative; max-height:200px; height:200px;"
+                     id="article-text">
+                    <article>
+                        <p>@Model.Topic.Content</p>
+                    </article>
                 </div>
-
-                <div class="text-right">
-                    <button class="btn btn-primary text-right">Login</button>
-                </div>  
             </div>
         </div>
     </div>
+
+
+    <div class="row mt-4">
+        @foreach (var question in Model.Questions)
+        {
+            <div class="col-6 mt-3">
+                <div>
+                    @(question.Text)
+                </div>
+
+                @foreach (var answer in question.Answers)
+                {
+                    <div class="w-100 border mt-1 p-2 answer-hover" style="cursor:pointer;">
+                        @(answer.Text)
+                    </div>
+                }
+            </div>
+
+        }
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-lg-6 offset-3 text-center">
+            <button class="btn btn-primary">Take Test</button>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        const app = new Vue({
+            el: '#take-test',
+            data: {
+                content: @(Json.Serialize(Model)),
+                selectedTopicId : '',
+            },
+            computed: {
+                comboboxData: function () {
+                    const result = [];
+                    if (this.content)
+                        for (const topic of this.content.topics) {
+                            result.push({ id: topic.id, title: topic.title });
+                        }
+                    return result;
+                },
+                selectedTopicText: function () {
+                    if (!this.content || !this.content.topics)
+                        return '';
+
+                    const temp = this.content.topics.find(x => x.id === this.selectedTopicId);
+                    if (temp)
+                        return temp.content;
+                    return '';
+                }
+            }
+        });
+
+        const container = document.querySelector('#article-text');
+        const ps = new PerfectScrollbar(container);
+
+    </script>
+}

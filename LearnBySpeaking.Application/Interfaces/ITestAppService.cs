@@ -7,6 +7,7 @@ namespace LearnBySpeaking.Application.Interfaces
     public interface ITestAppService
     {
         Task<IQueryable<TestViewModel>> GetAllAsync();
+        Task<TestViewModel> GetByIdAsync(int id);
         Task DeleteAsync(int id);
         Task CreateTest(CreateTestViewModel model);
     }

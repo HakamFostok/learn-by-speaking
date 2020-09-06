@@ -24,7 +24,7 @@ namespace LearnBySpeaking.Infra.Data.Repository.Core
             await DbSet.AddAsync(obj);
         }
 
-        public async Task<TEntity> GetByIdAsync(int id)
+        public virtual async Task<TEntity> GetByIdAsync(int id)
         {
             return await DbSet.FindAsync(id);
         }
