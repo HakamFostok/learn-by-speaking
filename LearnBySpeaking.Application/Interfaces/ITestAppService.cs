@@ -8,6 +8,6 @@ namespace LearnBySpeaking.Application.Interfaces
     {
         Task<IQueryable<TestViewModel>> GetAllAsync();
         Task DeleteAsync(int id);
-
+        Task CreateTest(CreateTestViewModel model);
     }
 }

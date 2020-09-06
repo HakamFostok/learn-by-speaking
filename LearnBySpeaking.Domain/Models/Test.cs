@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LearnBySpeaking.Domain.Models
@@ -12,5 +13,7 @@ namespace LearnBySpeaking.Domain.Models
         [ForeignKey(nameof(Topic))]
         public int TopicId { get; set; }
         public Topic Topic { get; set; }
+
+        public List<Question> Questions { get; set; }
     }
 }

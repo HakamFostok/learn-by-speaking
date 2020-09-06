@@ -5,62 +5,90 @@
 }
 
 <div id="create-test">
-    <div class="row">
-        <div class="col-12 offset-lg-2 col-lg-8">
-            <select class="form-control w-100" v-model="selectedTopicId">
-                <option v-for="item in comboboxData" :key="item.id" v-bind:value="item.id">
-                    {{ item.title }}
-                </option>
-            </select>
-            <div class="card mt-2">
-                <div class="card-body border-1 w-100" style="position:relative; max-height:200px; height:200px;"
-                             id="article-text">
-                    <article>
-                        <p>
-                            {{ selectedTopicText }}
-                        </p>
-                    </article>
+    <form asp-controller="test" asp-action="createTest">
+        <div class="row">
+            <div class="col-12 offset-lg-2 col-lg-8">
+                <select class="form-control w-100" v-model="selectedTopicId" name="topicId">
+                    <option v-for="item in comboboxData" :key="item.id" v-bind:value="item.id">
+                        {{ item.title }}
+                    </option>
+                </select>
+                <div class="card mt-2">
+                    <div class="card-body border-1 w-100" 
+                         style="position:relative; max-height:200px; height:200px;"
+                         id="article-text">
+                        <article>
+                            <p>
+                                {{ selectedTopicText }}
+                            </p>
+                        </article>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col-12 offset-lg-2 col-lg-8">
-            <input type="text" class="form-control" />
-            <div class="row">
-                <div class="col-6 mt-2">
-                    <input type="text" class="form-control" />
-                </div>
-                <div class="col-6 mt-2">
-                    <input type="text" class="form-control" />
-                </div>
 
-                <div class="col-6 mt-2">
-                    <input type="text" class="form-control" />
-                </div>
-                <div class="col-6 mt-2">
-                    <input type="text" class="form-control" />
-                </div>
-            </div>
-            <div class="row mt-2">
+        @for (int i = 0; i < 4; i++)
+        {
+            <div class="row mt-4">
                 <div class="col-12 offset-lg-2 col-lg-8">
-                    <select class="form-control w-100">
-                        <option value="a">A</option>
-                        <option value="b">B</option>
-                        <option value="c">C</option>
-                        <option value="d">D</option>
-                    </select>
+                    <input type="text" class="form-control" name="Questions[@(i)].Text" />
+                    <div class="row">
+                        <div class="col-6 mt-2">
+                            <div class="row form-group">
+                                <label class="col-1">A</label>
+                                <div class="col-11">
+                                    <input name="Questions[@(i)].Answers[0].Text" type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 mt-2">
+                            <div class="row form-group">
+                                <label class="col-1">B</label>
+                                <div class="col-11">
+                                    <input name="Questions[@(i)].Answers[1].Text" type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6 mt-2">
+                            <div class="row form-group">
+                                <label class="col-1">C</label>
+                                <div class="col-11">
+                                    <input name="Questions[@(i)].Answers[2].Text" type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 mt-2">
+                            <div class="row form-group">
+                                <label class="col-1">D</label>
+                                <div class="col-11">
+                                    <input name="Questions[@(i)].Answers[3].Text" type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12 offset-lg-2 col-lg-8">
+                            <select class="form-control w-100" name="Questions[@(i)].CorrectAnswer">
+                                <option value="a">A</option>
+                                <option value="b">B</option>
+                                <option value="c">C</option>
+                                <option value="d">D</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+            <hr />
+        }
 
-    <div class="row mt-4">
-        <div class="col-lg-6 offset-3 text-center">
-            <button class="btn btn-primary">Create Test</button>
+        <div class="row mt-4">
+            <div class="col-lg-6 offset-3 text-center">
+                <button class="btn btn-primary">Create Test</button>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 
 @section Scripts {
@@ -74,14 +102,18 @@
             computed: {
                 comboboxData: function () {
                     const result = [];
-                    for (const topic of this.content.topics) {
-                        result.push({ id: topic.id, title: topic.title });
-                    }
+                    if (this.content)
+                        for (const topic of this.content.topics) {
+                            result.push({ id: topic.id, title: topic.title });
+                        }
                     return result;
                 },
                 selectedTopicText: function () {
+                    if (!this.content || !this.content.topics)
+                        return '';
+
                     const temp = this.content.topics.find(x => x.id === this.selectedTopicId);
-                    if(temp)
+                    if (temp)
                         return temp.content;
                     return '';
                 }
