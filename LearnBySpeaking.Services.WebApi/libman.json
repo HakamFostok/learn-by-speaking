@@ -10,9 +10,17 @@
     {
       "library": "jquery@3.3.1",
       "destination": "wwwroot/lib/jquery/dist",
-      "files": [
-        "jquery.min.js"
-      ]
+      "files": [ "jquery.min.js" ]
+    },
+    {
+      "library": "vue@2.6.12",
+      "destination": "wwwroot/lib/vue/dist",
+      "files": [ "vue.min.js" ]
+    },
+    {
+      "library": "jquery.perfect-scrollbar@1.5.0",
+      "destination": "wwwroot/lib/perfect-scrollbar/dist",
+      "files": ["css/perfect-scrollbar.min.css", "perfect-scrollbar.min.js"]
     }
   ]
 }

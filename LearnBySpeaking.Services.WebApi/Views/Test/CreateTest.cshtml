@@ -4,55 +4,92 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="row">
-    <div class="col-12 offset-lg-2 col-lg-8">
-        <select class="form-control w-100">
-            <option value="1">1</option>
-            <option value="2">2</option>
-        </select>
-        <div class="card mt-2">
-            <div class="card-body">
-                <article class="border-1 w-100">
-                    <p>{{ selectedArticle }}</p>
-                </article>
-            </div>
-        </div>
-        
-    </div>
-</div>
-<div class="row mt-4">
-    <div class="col-12 offset-lg-2 col-lg-8">
-        <input type="text" class="form-control" />
-        <div class="row">
-            <div class="col-6 mt-2">
-                <input type="text" class="form-control" />
-            </div>
-            <div class="col-6 mt-2">
-                <input type="text" class="form-control" />
+<div id="create-test">
+    <div class="row">
+        <div class="col-12 offset-lg-2 col-lg-8">
+            <select class="form-control w-100" v-model="selectedTopicId">
+                <option v-for="item in comboboxData" :key="item.id" v-bind:value="item.id">
+                    {{ item.title }}
+                </option>
+            </select>
+            <div class="card mt-2">
+                <div class="card-body border-1 w-100" style="position:relative; max-height:200px; height:200px;"
+                             id="article-text">
+                    <article>
+                        <p>
+                            {{ selectedTopicText }}
+                        </p>
+                    </article>
+                </div>
             </div>
 
-            <div class="col-6 mt-2">
-                <input type="text" class="form-control" />
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-12 offset-lg-2 col-lg-8">
+            <input type="text" class="form-control" />
+            <div class="row">
+                <div class="col-6 mt-2">
+                    <input type="text" class="form-control" />
+                </div>
+                <div class="col-6 mt-2">
+                    <input type="text" class="form-control" />
+                </div>
+
+                <div class="col-6 mt-2">
+                    <input type="text" class="form-control" />
+                </div>
+                <div class="col-6 mt-2">
+                    <input type="text" class="form-control" />
+                </div>
             </div>
-            <div class="col-6 mt-2">
-                <input type="text" class="form-control" />
+            <div class="row mt-2">
+                <div class="col-12 offset-lg-2 col-lg-8">
+                    <select class="form-control w-100">
+                        <option value="a">A</option>
+                        <option value="b">B</option>
+                        <option value="c">C</option>
+                        <option value="d">D</option>
+                    </select>
+                </div>
             </div>
         </div>
-        <div class="row mt-2">
-            <div class="col-12 offset-lg-2 col-lg-8">
-                <select class="form-control w-100">
-                    <option value="a">A</option>
-                    <option value="b">B</option>
-                    <option value="c">C</option>
-                    <option value="d">D</option>
-                </select>
-            </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-lg-6 offset-3 text-center">
+            <button class="btn btn-primary">Create Test</button>
         </div>
     </div>
 </div>
 
-<div class="row mt-4">
-    <div class="col-lg-6 offset-3 text-center">
-        <button class="btn btn-primary">Create Test</button>
-    </div>
-</div>
+@section Scripts {
+    <script>
+        const app = new Vue({
+            el: '#create-test',
+            data: {
+                content: @(Json.Serialize(Model)),
+                selectedTopicId : '',
+            },
+            computed: {
+                comboboxData: function () {
+                    const result = [];
+                    for (const topic of this.content.topics) {
+                        result.push({ id: topic.id, title: topic.title });
+                    }
+                    return result;
+                },
+                selectedTopicText: function () {
+                    const temp = this.content.topics.find(x => x.id === this.selectedTopicId);
+                    if(temp)
+                        return temp.content;
+                    return '';
+                }
+            }
+        });
+
+        const container = document.querySelector('#article-text');
+        const ps = new PerfectScrollbar(container);
+
+    </script>
+}
