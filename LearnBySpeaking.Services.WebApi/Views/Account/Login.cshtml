@@ -9,12 +9,14 @@
                 <h4 class="text-center">Login</h4>
                 <form asp-controller="Account" asp-action="Login" method="post">
                     <div class="form-group">
-                        <input id="userName" name="userName" type="text" placeholder="User Name" class="form-control" />
+                        <input autofocus id="email" name="email" type="email" placeholder="Email" class="form-control" />
                     </div>
 
                     <div class="form-group">
                         <input id="password" name="password" type="password" placeholder="Password" class="form-control" />
                     </div>
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
 
                     <div class="text-right">
                         <button type="submit" class="btn btn-primary text-right">Login</button>

@@ -30,18 +30,27 @@ namespace LearnBySpeaking.Services.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
-            IdentityUser user = new IdentityUser
-            {
-                UserName = loginViewModel.UserName,
-                Email = loginViewModel + "@learnbyspeaking.com"
-            };
+            //IdentityUser user = new IdentityUser
+            //{
+            //    Id = Guid.NewGuid().ToString(),
+            //    UserName = loginViewModel.UserName,
+            //    Email = loginViewModel.UserName
+            //};
 
-            var result1 = await _userManager.CreateAsync(user, loginViewModel.Password);
-            var result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, true, false);
+            //var result1 = await _userManager.CreateAsync(user, loginViewModel.Password);
+            var result = await _signInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, true, false);
             if (result.Succeeded)
                 return RedirectToAction("CreateTest", "Test");
 
+            ModelState.AddModelError("", "UserName or password are not correct");
             return View(loginViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
         }
     }
 }
