@@ -20,7 +20,12 @@
     {
       "library": "jquery.perfect-scrollbar@1.5.0",
       "destination": "wwwroot/lib/perfect-scrollbar/dist",
-      "files": ["css/perfect-scrollbar.min.css", "perfect-scrollbar.min.js"]
+      "files": [ "css/perfect-scrollbar.min.css", "perfect-scrollbar.min.js" ]
+    },
+    {
+      "library": "axios@0.20.0",
+      "destination": "wwwroot/lib/axios/dist",
+      "files": [ "axios.min.js" ]
     }
   ]
 }

@@ -72,9 +72,11 @@ namespace LearnBySpeaking.Services.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TakeTest(EvaluateTestViewModel model)
+        public async Task<IActionResult> TakeTest([FromBody]  EvaluateTest model)
         {
-            return View();
+            var result = await _testAppService.TakeTest(model);
+            return Json(result);
+
         }
 
         public IActionResult Error(string message)

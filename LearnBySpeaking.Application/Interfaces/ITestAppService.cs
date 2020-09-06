@@ -10,5 +10,6 @@ namespace LearnBySpeaking.Application.Interfaces
         Task<TestViewModel> GetByIdAsync(int id);
         Task DeleteAsync(int id);
         Task CreateTest(CreateTestViewModel model);
+        Task<EvaluateTest> TakeTest(EvaluateTest model);
     }
 }

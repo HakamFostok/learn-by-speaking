@@ -47,7 +47,7 @@ namespace LearnBySpeaking.Infra.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CorrectAnswer")
+                    b.Property<char>("CorrectAnswer")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("TestId")

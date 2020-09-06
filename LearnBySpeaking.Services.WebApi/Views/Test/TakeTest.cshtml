@@ -26,7 +26,7 @@
             <div>
                 {{ q.text }}
             </div>
-            <div v-bind:class="{ selected: a.selected }" v-on:click="selectAnswer(q, a)" v-for="a in q.answers" class="w-100 border mt-1 p-2 answer-hover" style="cursor:pointer;">
+            <div v-bind:class="{ wrong : a.wrong, selected: a.selected }" v-on:click="selectAnswer(q, a)" v-for="a in q.answers" class="w-100 border mt-1 p-2 answer-hover" style="cursor:pointer;">
                 {{ a.text }}
             </div>
         </div>
@@ -34,7 +34,7 @@
 
     <div class="row mt-4">
         <div class="col-lg-6 offset-3 text-center">
-            <button class="btn btn-primary" :disabled="canSubmit">Take Test</button>
+            <button type="button" v-on:click="submit" class="btn btn-primary" :disabled="canSubmit">Take Test</button>
         </div>
     </div>
 </div>
@@ -68,6 +68,31 @@
                     for (const a of question.answers)
                         a.selected = false;
                     answer.selected = true;
+                },
+                submit: function () {
+                    const questions = [];
+                    for (const q of this.questions) {
+                        const temp = {
+                            id: q.id,
+                            answers: []
+                        };
+                        questions.push(temp);
+                        for (const a of q.answers) {
+                            temp.answers.push({ id: a.id, selected: a.selected })
+                        }
+                    }
+
+                    axios.post('/Test/TakeTest', {
+                         Id: @Model.Id,
+                         Questions: questions
+                    })
+                        .then(function (response) {
+                            debugger;
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
                 }
             }
         });

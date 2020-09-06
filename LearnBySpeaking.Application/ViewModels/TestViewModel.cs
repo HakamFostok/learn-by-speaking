@@ -11,4 +11,23 @@ namespace LearnBySpeaking.Application.ViewModels
 
         public List<QuestionViewModel> Questions { get; set; }
     }
+
+    public class EvaluateTest
+    {
+        public int Id { get; set; }
+        public List<EvaluateQuestion> Questions { get; set; }
+    }
+
+    public class EvaluateQuestion
+    {
+        public int Id { get; set; }
+        public List<EvaluateAnswer> Answers { get; set; }
+    }
+
+    public class EvaluateAnswer
+    {
+        public int Id { get; set; }
+        public bool Selected { get; set; }
+        public bool Wrong { get; set; }
+    }
 }

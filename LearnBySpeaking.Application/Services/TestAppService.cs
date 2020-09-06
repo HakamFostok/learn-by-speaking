@@ -47,6 +47,7 @@ namespace LearnBySpeaking.Application.Services
         public async Task DeleteAsync(int id)
         {
             await _testRepository.RemoveAsync(id);
+            await _testRepository.CommitAsync();
         }
 
         public async Task<IQueryable<TestViewModel>> GetAllAsync()
@@ -59,6 +60,23 @@ namespace LearnBySpeaking.Application.Services
         {
             var result = await _testRepository.GetByIdAsync(id);
             return _mapper.Map<TestViewModel>(result);
+        }
+
+        public async Task<EvaluateTest> TakeTest(EvaluateTest model)
+        {
+            var test = await _testRepository.GetByIdAsync(model.Id);
+
+            foreach (var userQuestion in model.Questions)
+            {
+                var testQuestion = test.Questions.FirstOrDefault(x => x.Id == userQuestion.Id);
+
+                var correctAnswer = testQuestion.Answers.FirstOrDefault(x1 => x1.AnswerLetter == testQuestion.CorrectAnswer);
+                var userAnswer = userQuestion.Answers.FirstOrDefault(x1 => x1.Selected);
+                if (correctAnswer.Id != userAnswer.Id)
+                    userAnswer.Wrong = true;
+            }
+
+            return model;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace LearnBySpeaking.Application.ViewModels
         public int Id { get; set; }
 
         public string Text { get; set; }
-        public string CorrectAnswer { get; set; }
+        public char CorrectAnswer { get; set; }
         public List<AnswerViewModel> Answers { get; set; }
     }
 }
