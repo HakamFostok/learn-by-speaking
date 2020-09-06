@@ -30,20 +30,33 @@ namespace LearnBySpeaking.Services.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
-            //IdentityUser user = new IdentityUser
-            //{
-            //    Id = Guid.NewGuid().ToString(),
-            //    UserName = loginViewModel.UserName,
-            //    Email = loginViewModel.UserName
-            //};
-
-            //var result1 = await _userManager.CreateAsync(user, loginViewModel.Password);
+            // this is not BEST practice at all
+            // this is just for demo purposes
+            await CreateDefaultUserIfNotExists();
+            
             var result = await _signInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, true, false);
             if (result.Succeeded)
                 return RedirectToAction("CreateTest", "Test");
 
             ModelState.AddModelError("", "UserName or password are not correct");
             return View(loginViewModel);
+        }
+
+        private async Task CreateDefaultUserIfNotExists()
+        {
+            IdentityUser user = await _userManager.FindByEmailAsync("admin@learn.com");
+            if (user != null)
+                return;
+
+          
+            user = new IdentityUser
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = "admin@learn.com",
+                Email = "admin@learn.com"
+            };
+            
+            await _userManager.CreateAsync(user, "123");
         }
 
         [HttpPost]

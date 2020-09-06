@@ -86,9 +86,14 @@
                          Id: @Model.Id,
                          Questions: questions
                     })
-                        .then(function (response) {
-                            debugger;
-                            console.log(response);
+                        .then((response) => {
+                            for (const question of response.data.questions) {
+                                const originalQuestion = this.questions.find(x => x.id === question.id);
+                                for (const answer of question.answers) {
+                                    const originalAnswer = originalQuestion.answers.find(x => x.id === answer.id);
+                                    originalAnswer.wrong = answer.wrong;
+                                }
+                            }
                         })
                         .catch(function (error) {
                             console.log(error);
