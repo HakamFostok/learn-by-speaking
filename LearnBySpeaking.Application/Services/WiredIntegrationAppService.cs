@@ -59,7 +59,7 @@ namespace LearnBySpeaking.Application.Services
             var ps = doc.QuerySelectorAll("article p").Where(x => x.GetClasses().Any() == false);
             StringBuilder builder = new StringBuilder();
             foreach (string v in ps.Select(x => x.InnerText))
-                builder.Append(v);
+                builder.Append(HttpUtility.HtmlDecode(v));
 
             return builder.ToString();
         }

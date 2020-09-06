@@ -5,16 +5,17 @@
 }
 
 <div id="create-test">
-    <form asp-controller="test" asp-action="createTest">
+    <form asp-controller="test" asp-action="createTest" class="needs-validation" novalidate>
         <div class="row">
             <div class="col-12 offset-lg-2 col-lg-8">
-                <select class="form-control w-100" v-model="selectedTopicId" name="topicId">
+                <select class="form-control w-100" v-model="selectedTopicId" name="topicId" required>
+                    <option value="">select topic</option>
                     <option v-for="item in comboboxData" :key="item.id" v-bind:value="item.id">
                         {{ item.title }}
                     </option>
                 </select>
                 <div class="card mt-2">
-                    <div class="card-body border-1 w-100" 
+                    <div class="card-body border-1 w-100"
                          style="position:relative; max-height:200px; height:200px;"
                          id="article-text">
                         <article>
@@ -32,13 +33,15 @@
         {
             <div class="row mt-4">
                 <div class="col-12 offset-lg-2 col-lg-8">
-                    <input type="text" class="form-control" name="Questions[@(i)].Text" />
+                    <input type="text" placeholder="Add Question" class="form-control" name="Questions[@(i)].Text" required />
+                    <div class="invalid-feedback">Required</div>
                     <div class="row">
                         <div class="col-6 mt-2">
                             <div class="row form-group">
                                 <label class="col-1">A</label>
                                 <div class="col-11">
-                                    <input name="Questions[@(i)].Answers[0].Text" type="text" class="form-control" />
+                                    <input placeholder="Add Option A" name="Questions[@(i)].Answers[0].Text" type="text" class="form-control" required/>
+                                    <div class="invalid-feedback">Required</div>
                                     <input name="Questions[@(i)].Answers[0].AnswerLetter" type="hidden" value="a" />
                                 </div>
                             </div>
@@ -47,7 +50,8 @@
                             <div class="row form-group">
                                 <label class="col-1">B</label>
                                 <div class="col-11">
-                                    <input name="Questions[@(i)].Answers[1].Text" type="text" class="form-control" />
+                                    <input placeholder="Add Option B" name="Questions[@(i)].Answers[1].Text" type="text" class="form-control" required />
+                                    <div class="invalid-feedback">Required</div>
                                     <input name="Questions[@(i)].Answers[1].AnswerLetter" type="hidden" value="b" />
                                 </div>
                             </div>
@@ -57,7 +61,8 @@
                             <div class="row form-group">
                                 <label class="col-1">C</label>
                                 <div class="col-11">
-                                    <input name="Questions[@(i)].Answers[2].Text" type="text" class="form-control" />
+                                    <input placeholder="Add Option C" name="Questions[@(i)].Answers[2].Text" type="text" class="form-control" required/>
+                                    <div class="invalid-feedback">Required</div>
                                     <input name="Questions[@(i)].Answers[2].AnswerLetter" type="hidden" value="c" />
                                 </div>
                             </div>
@@ -66,7 +71,8 @@
                             <div class="row form-group">
                                 <label class="col-1">D</label>
                                 <div class="col-11">
-                                    <input name="Questions[@(i)].Answers[3].Text" type="text" class="form-control" />
+                                    <input placeholder="Add Option D" name="Questions[@(i)].Answers[3].Text" type="text" class="form-control" required/>
+                                    <div class="invalid-feedback">Required</div>
                                     <input name="Questions[@(i)].Answers[3].AnswerLetter" type="hidden" value="d" />
                                 </div>
                             </div>
@@ -74,12 +80,14 @@
                     </div>
                     <div class="row mt-2">
                         <div class="col-12 offset-lg-2 col-lg-8">
-                            <select class="form-control w-100" name="Questions[@(i)].CorrectAnswer">
+                            <select class="form-control w-100" name="Questions[@(i)].CorrectAnswer" required>
+                                <option value="">Choose the correct answer</option>
                                 <option value="a">A</option>
                                 <option value="b">B</option>
                                 <option value="c">C</option>
                                 <option value="d">D</option>
                             </select>
+                            <div class="invalid-feedback">Required</div>
                         </div>
                     </div>
                 </div>
@@ -104,7 +112,7 @@
                 selectedTopicId : '',
             },
             computed: {
-                comboboxData: function () {
+                comboboxData () {
                     const result = [];
                     if (this.content)
                         for (const topic of this.content.topics) {
@@ -112,7 +120,7 @@
                         }
                     return result;
                 },
-                selectedTopicText: function () {
+                selectedTopicText () {
                     if (!this.content || !this.content.topics)
                         return '';
 
@@ -126,6 +134,24 @@
 
         const container = document.querySelector('#article-text');
         const ps = new PerfectScrollbar(container);
+
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
 
     </script>
 }
