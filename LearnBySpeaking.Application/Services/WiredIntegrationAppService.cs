@@ -25,6 +25,9 @@ namespace LearnBySpeaking.Application.Services
 
         public async Task Integration()
         {
+            if ((await _topicRepository.GetAllAsync()).Any())
+                return;
+
             List<Topic> topics = await GetTopics();
             foreach (Topic topic in topics)
                 await _topicRepository.AddAsync(topic);
