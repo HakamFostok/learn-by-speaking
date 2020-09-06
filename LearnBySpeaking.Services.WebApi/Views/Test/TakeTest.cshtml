@@ -22,27 +22,19 @@
 
 
     <div class="row mt-4">
-        @foreach (var question in Model.Questions)
-        {
-            <div class="col-6 mt-3">
-                <div>
-                    @(question.Text)
-                </div>
-
-                @foreach (var answer in question.Answers)
-                {
-                    <div class="w-100 border mt-1 p-2 answer-hover" style="cursor:pointer;">
-                        @(answer.Text)
-                    </div>
-                }
+        <div class="col-6 mt-3" v-for="q in questions">
+            <div>
+                {{ q.text }}
             </div>
-
-        }
+            <div v-bind:class="{ selected: a.selected }" v-on:click="selectAnswer(q, a)" v-for="a in q.answers" class="w-100 border mt-1 p-2 answer-hover" style="cursor:pointer;">
+                {{ a.text }}
+            </div>
+        </div>
     </div>
 
     <div class="row mt-4">
         <div class="col-lg-6 offset-3 text-center">
-            <button class="btn btn-primary">Take Test</button>
+            <button class="btn btn-primary" :disabled="canSubmit">Take Test</button>
         </div>
     </div>
 </div>
@@ -52,26 +44,30 @@
         const app = new Vue({
             el: '#take-test',
             data: {
-                content: @(Json.Serialize(Model)),
-                selectedTopicId : '',
+                questions: @(Json.Serialize(Model.Questions)),
             },
             computed: {
-                comboboxData: function () {
-                    const result = [];
-                    if (this.content)
-                        for (const topic of this.content.topics) {
-                            result.push({ id: topic.id, title: topic.title });
-                        }
-                    return result;
-                },
-                selectedTopicText: function () {
-                    if (!this.content || !this.content.topics)
-                        return '';
+                canSubmit: function () {
+                    const isValid = (question) => {
+                        for (const a of question.answers)
+                            if (a.selected === true)
+                                return true;
 
-                    const temp = this.content.topics.find(x => x.id === this.selectedTopicId);
-                    if (temp)
-                        return temp.content;
-                    return '';
+                        return false;
+                    };
+
+                    const result = []
+                    for (const q of this.questions)
+                        result.push(isValid(q));
+
+                    return result.some(x => x === false);
+                }
+            },
+            methods: {
+                selectAnswer: function (question, answer) {
+                    for (const a of question.answers)
+                        a.selected = false;
+                    answer.selected = true;
                 }
             }
         });
