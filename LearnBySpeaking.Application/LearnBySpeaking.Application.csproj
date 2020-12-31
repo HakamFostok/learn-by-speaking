@@ -1,12 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
-	</PropertyGroup>
-
 	<ItemGroup>
-		<PackageReference Include="AutoMapper" Version="10.0.0" />
-		<PackageReference Include="HtmlAgilityPack" Version="1.11.24" />
+		<PackageReference Include="AutoMapper" Version="10.1.1" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.29" />
 		<PackageReference Include="HtmlAgilityPack.CssSelectors" Version="1.0.2" />
 	</ItemGroup>
 
