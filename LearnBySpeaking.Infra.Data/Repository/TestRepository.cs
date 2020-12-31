@@ -3,7 +3,6 @@ using LearnBySpeaking.Domain.Models;
 using LearnBySpeaking.Infra.Data.Context;
 using LearnBySpeaking.Infra.Data.Repository.Core;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using System.Linq;
 using System.Threading.Tasks;
 

@@ -1,10 +1,7 @@
-﻿using DnsClient.Protocol;
-using LearnBySpeaking.Application.Interfaces;
+﻿using LearnBySpeaking.Application.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Linq.Expressions;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,7 +11,7 @@ namespace LearnBySpeaking.Services.WebApi.HostedServices
     {
         private const int ONE_HOUR = 1000 * 60 * 60;
         private readonly IServiceProvider _serviceProvider;
-       
+
         public WiredIntegrationService(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
@@ -30,7 +27,7 @@ namespace LearnBySpeaking.Services.WebApi.HostedServices
                     using var integrationService = scope.ServiceProvider.GetService<IWiredIntegrationAppService>();
                     await integrationService.Integration();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                 }

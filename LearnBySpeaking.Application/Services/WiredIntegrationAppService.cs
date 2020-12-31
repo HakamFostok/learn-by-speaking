@@ -83,7 +83,7 @@ namespace LearnBySpeaking.Application.Services
                     var aElement = li.QuerySelectorAll("a")[1];
                     result.Add((HttpUtility.HtmlDecode(li.InnerText), aElement.Attributes["href"].Value));
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                 }
             }

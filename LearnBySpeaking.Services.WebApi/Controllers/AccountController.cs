@@ -2,9 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace LearnBySpeaking.Services.WebApi.Controllers
@@ -33,7 +30,7 @@ namespace LearnBySpeaking.Services.WebApi.Controllers
             // this is not BEST practice at all
             // this is just for demo purposes
             await CreateDefaultUserIfNotExists();
-            
+
             var result = await _signInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, true, false);
             if (result.Succeeded)
                 return RedirectToAction("CreateTest", "Test");
@@ -48,14 +45,14 @@ namespace LearnBySpeaking.Services.WebApi.Controllers
             if (user != null)
                 return;
 
-          
+
             user = new IdentityUser
             {
                 Id = Guid.NewGuid().ToString(),
                 UserName = "admin@learn.com",
                 Email = "admin@learn.com"
             };
-            
+
             await _userManager.CreateAsync(user, "123");
         }
 

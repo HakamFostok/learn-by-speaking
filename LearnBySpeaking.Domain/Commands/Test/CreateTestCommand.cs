@@ -1,7 +1,5 @@
 ﻿using LearnBySpeaking.Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace LearnBySpeaking.Domain.Commands.Test
 {

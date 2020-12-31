@@ -1,11 +1,8 @@
 ﻿using LearnBySpeaking.Application.Interfaces;
 using LearnBySpeaking.Application.ViewModels;
-using LearnBySpeaking.Domain.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -72,7 +69,7 @@ namespace LearnBySpeaking.Services.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TakeTest([FromBody]  EvaluateTest model)
+        public async Task<IActionResult> TakeTest([FromBody] EvaluateTest model)
         {
             var result = await _testAppService.TakeTest(model);
             return Json(result);

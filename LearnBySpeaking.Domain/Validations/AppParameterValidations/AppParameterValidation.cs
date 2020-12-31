@@ -1,5 +1,5 @@
-﻿using LearnBySpeaking.Domain.Commands.AppParameter;
-using FluentValidation;
+﻿using FluentValidation;
+using LearnBySpeaking.Domain.Commands.AppParameter;
 
 namespace LearnBySpeaking.Domain.Validations.AppParameterValidations
 {

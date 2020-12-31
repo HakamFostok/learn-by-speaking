@@ -1,7 +1,7 @@
-﻿using LearnBySpeaking.Domain.Core;
-using LearnBySpeaking.Domain.Interfaces.Core;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Results;
+using LearnBySpeaking.Domain.Core;
+using LearnBySpeaking.Domain.Interfaces.Core;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading.Tasks;

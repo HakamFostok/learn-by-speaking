@@ -1,5 +1,4 @@
-﻿using LearnBySpeaking.Domain.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace LearnBySpeaking.Application.ViewModels
 {

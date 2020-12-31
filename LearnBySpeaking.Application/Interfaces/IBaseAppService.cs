@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LearnBySpeaking.Application.Interfaces
 {
-  
+
     public interface IBaseAppService<TViewModel, TEventModel> : IDisposable
     where TViewModel : BaseViewModel
     where TEventModel : Event

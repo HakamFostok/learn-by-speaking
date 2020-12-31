@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace LearnBySpeaking.Application.ViewModels
+﻿namespace LearnBySpeaking.Application.ViewModels
 {
     public class LoginViewModel
     {

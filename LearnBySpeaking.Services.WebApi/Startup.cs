@@ -5,17 +5,14 @@ using LearnBySpeaking.Infra.Data.Context;
 using LearnBySpeaking.Services.WebApi.HostedServices;
 using LearnBySpeaking.Services.WebApi.Utility;
 using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NLog.Extensions.Logging;
 using System;
-using System.Text;
 
 namespace LearnBySpeaking.Services.WebApi
 {
@@ -121,6 +118,6 @@ namespace LearnBySpeaking.Services.WebApi
                 return new AppSettings(jwtOptionsSection, connectionStringsSection, mongodbDatabaseSettings);
             });
         }
-        
+
     }
 }
